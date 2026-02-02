@@ -7,6 +7,8 @@ import '@shoelace-style/shoelace/dist/components/button/button.js';
 
 
 
+import { tailwindStyles } from '../styles/tailwind';
+
 @customElement('app-home')
 export class AppHome extends LitElement {
 
@@ -14,9 +16,9 @@ export class AppHome extends LitElement {
   // check out this link https://lit.dev/docs/components/properties/
   @property() message = 'Welcome!';
 
-  createRenderRoot() {
-    return this;
-  }
+  static styles = [tailwindStyles];
+
+
 
   async firstUpdated() {
     // this method is a lifecycle even in lit

@@ -48,18 +48,22 @@ The following table guides you on which files are safe to modify and which shoul
 
 ## Styling & Architecture
 
-### Tailwind CSS & Light DOM
-This project uses Tailwind CSS for styling. To ensure Tailwind utility classes work correctly within Lit custom elements, we use the **Light DOM** instead of the Shadow DOM for most components.
+### Tailwind CSS & Shadow DOM
+This project uses Tailwind CSS for styling. To ensure Tailwind utility classes work correctly within Lit custom elements (which use Shadow DOM), **we must inject the Tailwind styles into each component**.
 
-This is achieved by overriding `createRenderRoot` in your Lit components:
+We have a helper file `src/styles/tailwind.ts` that exports the compiled Tailwind CSS.
+
+To use Tailwind in your components:
+
+1.  Import `tailwindStyles`.
+2.  Add it to the `static styles` array.
 
 ```typescript
 import { LitElement, html } from 'lit';
+import { tailwindStyles } from '../styles/tailwind';
 
 export class MyComponent extends LitElement {
-  createRenderRoot() {
-    return this; // Disable Shadow DOM
-  }
+  static styles = [tailwindStyles]; // Inject Tailwind styles
 
   render() {
     return html`
@@ -71,11 +75,9 @@ export class MyComponent extends LitElement {
 }
 ```
 
-*Note: By using Light DOM, global styles (like Tailwind) apply to the component, but you lose style encapsulation. Be mindful of class name collisions, though Tailwind's utility-first approach minimizes this risk.*
-
 ### Styles Directory
-*   `src/styles/global.css`: The main entry point for Tailwind CSS (`@import "tailwindcss";`). This file is imported in `src/app-index.ts`.
-*   *Legacy files `shared-styles.ts` and `about-styles.ts` are deprecated/removed in favor of Tailwind classes.*
+*   `src/styles/global.css`: The main entry point for Tailwind CSS (`@import "tailwindcss";`).
+*   `src/styles/tailwind.ts`: **Helper module** that exports the Global CSS + Tailwind as a Lit-compatible style object. Use this in all your components.
 
 ## Development
 
@@ -88,7 +90,7 @@ export class MyComponent extends LitElement {
 ### Adding a New Page
 
 1.  Create a new component in `src/pages/` (e.g., `my-page.ts`).
-2.  Implement the component using `createRenderRoot()` if you want Tailwind support.
+2.  Implement the component using `static styles = [tailwindStyles]` for Tailwind support.
 3.  Register the route in `src/router.ts`:
     ```typescript
     {

@@ -3,15 +3,17 @@ import { property, customElement } from 'lit/decorators.js';
 import { resolveRouterPath } from '../router';
 
 import '@shoelace-style/shoelace/dist/components/button/button.js';
+import { tailwindStyles } from '../styles/tailwind';
+
 @customElement('app-header')
 export class AppHeader extends LitElement {
+  static styles = [tailwindStyles];
+
   @property({ type: String }) title = 'PWA Starter';
 
   @property({ type: Boolean }) enableBack: boolean = false;
 
-  createRenderRoot() {
-    return this;
-  }
+
 
   render() {
     return html`

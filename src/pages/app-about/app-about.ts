@@ -5,11 +5,11 @@ import { customElement } from 'lit/decorators.js';
 
 import '@shoelace-style/shoelace/dist/components/card/card.js';
 
+import { tailwindStyles } from '../../styles/tailwind';
+
 @customElement('app-about')
 export class AppAbout extends LitElement {
-  createRenderRoot() {
-    return this;
-  }
+  static styles = [tailwindStyles];
 
   render() {
     return html`

@@ -6,11 +6,11 @@ import './components/header';
 import './styles/global.css';
 import { router } from './router';
 
+import { tailwindStyles } from './styles/tailwind';
+
 @customElement('app-index')
 export class AppIndex extends LitElement {
-  createRenderRoot() {
-    return this;
-  }
+  static styles = [tailwindStyles];
 
   firstUpdated() {
     router.addEventListener('route-changed', () => {
