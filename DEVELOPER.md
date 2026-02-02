@@ -10,19 +10,40 @@ Welcome to the PWA Starter developer guide. This document provides an overview o
 *   **Routing**: [@thepassle/app-tools/router](https://github.com/thepassle/app-tools/blob/master/router/README.md)
 *   **PWA**: [vite-plugin-pwa](https://vite-plugin-pwa.netlify.app/)
 
+## Files Breakdown & Purpose
+
+The following table guides you on which files are safe to modify and which should be handled with caution.
+
+| File / Folder | Safety | Purpose |
+| :--- | :--- | :--- |
+| **`src/pages/`** | ✅ **Safe** | Contains your application pages (e.g., Home, About). **This is where you'll do most of your work.** |
+| **`src/components/`** | ✅ **Safe** | Reusable UI components (e.g., Headers, Cards). Modify these to build your UI. |
+| **`src/router.ts`** | ✅ **Safe** | Defines your app's routes. **Edit this** when adding new pages. |
+| **`src/app-index.ts`** | ⚠️ **Caution** | The main app shell. Modify only if changing the global layout/providers. |
+| **`src/styles/global.css`** | ✅ **Safe** | Global CSS. Tailwind is initialized here. Add global fonts/variables here. |
+| **`public/manifest.json`** | ✅ **Safe** | PWA Manifest. **Edit this** to change your app's name, icons, and theme colors. |
+| **`public/sw.js`** | ⚠️ **Caution** | Service Worker. Contains logic for offline support and widgets. |
+| **`index.html`** | ✅ **Safe** | HTML entry point. Edit to change `<title>`, meta tags, or add external scripts. |
+| **`package.json`** | ⚠️ **Caution** | Manages dependencies. Edit to add packages, but be careful with versions/scripts. |
+| **`vite.config.ts`** | ⛔ **Advanced** | Build configuration. **Do not touch** unless you know exactly what you are doing. |
+| **`tsconfig.json`** | ⛔ **Advanced** | TypeScript configuration. Changing this can break type checking. |
+| **`src/styles/shared-styles.ts`** | ❌ **Do Not Use** | Deprecated. Use Tailwind CSS classes instead. |
+
 ## Project Structure
 
 ```
-├── public/              # Static assets (manifest, service worker, icons)
+├── public/
+│   ├── manifest.json    # App metadata (name, icons)
+│   ├── sw.js            # Service Worker logic
+│   └── assets/          # Images/Icons
 ├── src/
-│   ├── components/      # Reusable UI components (e.g., header)
-│   ├── pages/           # Page-level components
-│   ├── styles/          # Global styles (including Tailwind setup)
-│   ├── app-index.ts     # Main application entry point
-│   └── router.ts        # Route configuration
-├── index.html           # HTML entry point
-├── vite.config.ts       # Vite configuration
-└── package.json         # Project dependencies and scripts
+│   ├── components/      # UI Components (Header, etc.)
+│   ├── pages/           # Page Components (Home, About)
+│   ├── styles/          # Global CSS
+│   ├── app-index.ts     # Main App Shell
+│   └── router.ts        # Routing Logic
+├── index.html           # HTML Entry
+└── vite.config.ts       # Build Config
 ```
 
 ## Styling & Architecture
